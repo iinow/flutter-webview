@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const container = document.getElementById('map');
   const options = {
     center: new kakao.maps.LatLng(33.450701, 126.570667),
-    level: 5
+    level: 2
   };
 
   map = new kakao.maps.Map(container, options);
@@ -25,6 +25,13 @@ function searchPlaces(keyword) {
 function searchCallback(data, status, pagination) {
   if(status === kakao.maps.services.Status.OK) {
     console.log('검색 결과', data, 'paging', pagination)
+    data
+      .map(place => new kakao.maps.LatLng(place.y, place.x))
+      .map(latlon => new kakao.maps.Marker({
+        position: latlon
+      }))
+      .forEach(marker => marker.setMap(map))
+
     findSearchMap.postMessage(JSON.stringify(data))
     return;
   }
@@ -38,20 +45,13 @@ function searchCallback(data, status, pagination) {
   }
 }
 
-    // <button onclick="onclickTest()">테스트1</button>
-    //   <p id="tag"></p>
-    // <script>
-    //   function onclickTest() {
-    //     console.log('테스트 1 클릭')
-    //     try {
-    //       alert('kdfjakdfj');
-    //       test.postMessage('하하하하..')
-    //     } catch (err) {
+function panTo(latitude, longitude) {
+  let moveLatLon = new kakao.maps.LatLng(latitude, longitude)
+  map.panTo(moveLatLon)
 
-    //     }
-    //   }
+  let marker = new kakao.maps.Marker({
+    position: markerPosition
+  });
 
-    //   function handleAppToWeb(str = 'hell') {
-    //       document.getElementById('tag').textContent = str
-    //   }
-    // </script>
+  marker.setMap(map);
+}
