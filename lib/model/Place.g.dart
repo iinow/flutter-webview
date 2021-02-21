@@ -13,16 +13,16 @@ Place _$PlaceFromJson(Map<String, dynamic> json) {
       phone: json['phone'] as String,
       placeName: json['place_name'] as String,
       placeUrl: json['place_url'] as String,
-      latitude: json['x'] as String,
-      longitude: json['y'] as String);
+      latitude: json['y'] as String,
+      longitude: json['x'] as String);
 }
 
 Map<String, dynamic> _$PlaceToJson(Place instance) => <String, dynamic>{
       'address_name': instance.addressName,
       'place_name': instance.placeName,
       'place_url': instance.placeUrl,
-      'x': instance.latitude,
-      'y': instance.longitude,
+      'y': instance.latitude,
+      'x': instance.longitude,
       'id': instance.id,
       'phone': instance.phone
     };

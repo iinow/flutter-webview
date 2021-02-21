@@ -22,10 +22,10 @@ class Place {
   @JsonKey(name: 'place_url')
   String placeUrl;
 
-  @JsonKey(name: 'x')
+  @JsonKey(name: 'y')
   String latitude;
 
-  @JsonKey(name: 'y')
+  @JsonKey(name: 'x')
   String longitude;
 
   @JsonKey(name: 'id')

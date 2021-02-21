@@ -72,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
               debuggingEnabled: true,
               onWebViewCreated: (controller) {
                 _webViewController = controller;
+                _webViewController.clearCache();
               },
               javascriptChannels: Set.from([
                 //Web to App
@@ -120,9 +121,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   scrollDirection: Axis.horizontal,
                   children: places
                       .map(
-                        (e) => RaisedButton(
-                          onPressed: () {},
-                          child: Text(e.placeName),
+                        (place) => RaisedButton(
+                          onPressed: () {
+                            this._webViewController.evaluateJavascript(
+                                'panTo("${place.latitude}", "${place.longitude}")');
+                          },
+                          child: Text(place.placeName),
                         ),
                       )
                       .toList(),
